@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import { getMapUuid } from "./services/mapService";
 import path from "path";
 import { getImage } from "./utils/imageCache";
-import { IMAGE_BASE_URL, LIST_SEPERATOR } from "./const/urls";
+import { IMAGE_BASE_URL, ITEM_DELIMITER, PARAM_DELIMITER } from "./const/urls";
 import { logRequest } from "./middlewares/logRequest";
 import { getImageFromUuid } from "./services/imageService";
 import { authorizationMiddleware } from "./middlewares/authorization";
+import { PlacesList } from "./types/PlacesList";
 
 dotenv.config();
 
@@ -17,11 +18,22 @@ app.use(logRequest);
 
 app.get("/map", authorizationMiddleware, async (req, res) => {
   const places = req.query.places as string;
-  const placeList = places.split(LIST_SEPERATOR);
+  const placesList: PlacesList = places
+    ?.split(ITEM_DELIMITER)
+    ?.map((list) => {
+      const [name, number, color] = list.split(PARAM_DELIMITER);
+      if (!name) {
+        res.status(400).send("Each place must have a name");
+        return;
+      }
+      return { name, number, color };
+    })
+    .filter(Boolean) as PlacesList;
+
   const size = req.query?.size as string;
 
   try {
-    const uuid = await getMapUuid(placeList, size);
+    const uuid = await getMapUuid(placesList, size);
     if (!uuid) {
       res.status(500).send("Error generating map");
       return;
