@@ -1,0 +1,20 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+RUN npm install --save node-cache
+RUN npm i --save-dev @types/node-cache
+RUN npm install --save uuid
+RUN npm i --save-dev @types/uuid
+
+COPY . .
+
+ENV PORT=3000
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

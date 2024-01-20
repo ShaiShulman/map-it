@@ -1,0 +1,26 @@
+openapi: 3.0.1
+info:
+  title: Map-It!
+  description: Draws a map with specific locations as markers.
+  version: "v1"
+servers:
+  - url: https://mapit.roboguide.xyz
+paths:
+  /map:
+    get:
+      operationId: getMap
+      summary: Returns a map with with specific locations as markers. Map is returned as a base64 image.
+      parameters:
+        - in: query
+          name: places
+          schema:
+            type: string
+          description: list of geographical place names to be shown on the map, divided by semicolons.
+        - in: query
+          name: size
+          schema:
+            type: string
+          description: Size of the returned map. Can be either "small", "medium", "large", or height and width in pixels seperated by "x" (e.g. "300x300")
+      responses:
+        "200":
+          description: OKx`
