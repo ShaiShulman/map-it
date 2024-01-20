@@ -1,15 +1,19 @@
 import axios from "axios";
 import { mapSizeDefault, mapSizeRE, mapSizes } from "../const/mapSizes";
 import { storeImage } from "../utils/imageCache";
-
+import { PlacesList } from "../types/PlacesList";
 export async function getMapUuid(
-  places: string[],
+  places: PlacesList,
   size?: string
 ): Promise<string> {
   const markers = places
     .map(
       (place, index) =>
-        `markers=color:blue|label:${index + 1}|${encodeURIComponent(place)}`
+        `markers=color:${place.color || "blue"}|label:${
+          place.number && /^\d/.test(place.number.charAt(0))
+            ? place.number.charAt(0)
+            : index + 1
+        }|${encodeURIComponent(place.name)}`
     )
     .join("&");
   const sizeParam =
@@ -19,7 +23,6 @@ export async function getMapUuid(
       ? mapSizes[size as keyof typeof mapSizes]
       : mapSizeDefault;
   const url = `https://maps.googleapis.com/maps/api/staticmap?${markers}&key=${process.env.GOOGLE_MAPS_API_KEY}&size=${sizeParam}`;
-  console.log(url);
 
   try {
     const response = await axios.get(url, { responseType: "arraybuffer" });

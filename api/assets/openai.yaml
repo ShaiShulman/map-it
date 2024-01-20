@@ -4,23 +4,40 @@ info:
   description: Draws a map with specific locations as markers.
   version: "v1"
 servers:
-  - url: https://mapit.roboguide.xyz
+  - url: https://roboguide.xyz/map-it
 paths:
   /map:
     get:
       operationId: getMap
-      summary: Returns a map with with specific locations as markers. Map is returned as a base64 image.
+      summary: Returns a map with with specific locations as markers. Each marker has a location, index (single digit optional) and color (optional). Map is returned as a base64 image.
       parameters:
         - in: query
           name: places
           schema:
             type: string
-          description: list of geographical place names to be shown on the map, divided by semicolons.
+            description: list of geographical place parameters to be shown on the map. Each place's parameters are divided by '|', in the order of name, number, and color. The places themselves are seperated by semicolons (example - 'Boston;1;red|NYC;3;blue|Baltimore;4;red')
         - in: query
           name: size
           schema:
             type: string
-          description: Size of the returned map. Can be either "small", "medium", "large", or height and width in pixels seperated by "x" (e.g. "300x300")
-      responses:
-        "200":
-          description: OKx`
+            description: The size of the map. Can be 'small', 'medium', or 'large'.
+components:
+  schemas:
+    Place:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the place.
+        number:
+          type: string
+          description: The number associated with the place.
+          nullable: true
+        color:
+          type: string
+          description: The color of the place marker on the map.
+          nullable: true
+    PlacesList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Place"
