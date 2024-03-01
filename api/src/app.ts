@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import { getMapUuid } from "./services/mapService";
 import path from "path";
-import { getImage } from "./utils/imageCache";
 import { IMAGE_BASE_URL, LIST_SEPERATOR } from "./const/urls";
 import { logRequest } from "./middlewares/logRequest";
 import { getImageFromUuid } from "./services/imageService";
