@@ -1,5 +1,5 @@
 {
-  "schema_version": "v1.1",
+  "schema_version": "v1.2",
   "name_for_human": "Map It!",
   "name_for_model": "MapIt",
   "description_for_human": "Draws a map with specific locations as markers",
@@ -13,9 +13,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "roboguide.xyz/openapi.yaml"
+    "url": "roboguide.xyz/map-it/openapi.yaml"
   },
-  "logo_url": "mapit.roboguide.xyz/assets/logo.png",
+  "logo_url": "roboguide.xyz/map-it/assets/logo",
   "contact_email": "mapit.info@gmail.com",
-  "legal_info_url": "https://mapit.roboguide.xyz/legal"
+  "legal_info_url": "https://roboguide.xyz/map-it/legal"
 }

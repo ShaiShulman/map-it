@@ -4,7 +4,7 @@ info:
   description: Draws a map with specific locations as markers.
   version: "v1"
 servers:
-  - url: https://mapit.roboguide.xyz
+  - url: https://roboguide.xyz/map-it
 paths:
   /map:
     get:
