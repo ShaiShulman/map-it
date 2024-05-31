@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Map-It!
   description: Draws a map with specific locations as markers.
-  version: "v1"
+  version: "v1.1"
 servers:
   - url: https://roboguide.xyz/map-it
 paths:
@@ -15,7 +15,8 @@ paths:
           name: places
           schema:
             type: string
-            description: list of geographical place parameters to be shown on the map. Each place's parameters are divided by '|', in the order of name, number, and color. The places themselves are seperated by semicolons (example - 'Boston;1;red|NYC;3;blue|Baltimore;4;red')
+            description: Semicolon separated list of geographical places to be shown on the map. Each place's parameters are divided by '|', in the order of name, number, and color.
+            example: "Boston|1|red;NYC|2|blue"
         - in: query
           name: size
           schema:
