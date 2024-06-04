@@ -6,4 +6,4 @@ export const mapSizes = {
 
 export const mapSizeRE = /^[0-9]{3,4}x[0-9]{3,4}$/;
 
-export const mapSizeDefault = "600x400";
+export const mapSizeDefault = "1200x800";
